@@ -8,7 +8,7 @@ const router = require('express').Router();
 router.post('/register', async (req, res, next) => {
   // implement registration
   try {
-    // const saved = await 
+    const saved = await 
   } catch(err) {
 
   }
