@@ -14,7 +14,15 @@ test('welcome route', async () => {
 });
 
 test('register', async () => {
-  const res = await supertest(server).post('/register')
-  expect(res.status).toBe(201)
-  expect(res.type).toBe('application/json')
-})
+  const res = await supertest(server)
+    .post('/register')
+    .send({ username: 'drako' })
+    // expect(res.status).toBe(201)
+    expect(res.body).toEqual({ id: 4, username: 'drako'})
+});
+
+test('login', async () => {
+const res = await supertest(server).post('/login').send({ username: 'harry', password: 123 })
+expect(res.status).toBe(200)
+expect(res.type).toBe('application/json')
+});

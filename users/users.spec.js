@@ -19,10 +19,9 @@ describe('find users', () => {
   });
 
   test('add user', async () => {
-    await usersModel.add({ username: 'tester', password: "test" })
+    await usersModel.add({ username: "drako", password: "014" })
     const res = await db('users').select()
     expect(res).toHaveLength(4)
-    expect(res.type).toEqual('application/json')
   })
 });
 
