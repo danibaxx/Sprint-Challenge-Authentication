@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets');
 
 const usersModel = require('../users/users-model');
-const auth = require('../auth/authenticate-middleware');
 
 const router = express.Router()
 
@@ -12,13 +11,14 @@ router.post('/register', async (req, res, next) => {
   // implement registration
   try {
     const saved = await usersModel.add(req.body)
+    // console.log(req.body)
     res.status(201).json(saved)
   } catch(err) {
     next(err)
   }
 });
 
-router.post('/login', auth(), async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   // implement login
   try {
     const { username, password } = req.body;
@@ -35,7 +35,6 @@ router.post('/login', auth(), async (req, res, next) => {
 
       res.status(200).json({
         message: `Welcome ${user.username}, you are authorized!`,
-        userId: req.userId,
         token: token,
       })
     } else {

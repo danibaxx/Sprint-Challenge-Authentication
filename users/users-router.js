@@ -1,10 +1,10 @@
 const express = require('express');
 const usersModel = require('./users-model');
-const auth = require('../auth/authenticate-middleware');
+// const auth = require('../auth/authenticate-middleware');
 
 const router = express.Router();
 
-router.get('/', auth(), async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await usersModel.find()
     
