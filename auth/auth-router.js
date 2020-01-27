@@ -4,8 +4,9 @@ const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets');
 
 const usersModel = require('../users/users-model');
+const auth = require('../auth/authenticate-middleware');
 
-const router = require('express').Router();
+const router = express.Router()
 
 router.post('/register', async (req, res, next) => {
   // implement registration
@@ -17,7 +18,7 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', auth(), async (req, res, next) => {
   // implement login
   try {
     const { username, password } = req.body;
@@ -25,20 +26,21 @@ router.post('/login', async (req, res, next) => {
     const pwValid = await bcrypt.compare(password, user.password)
 
     if (user && pwValid) {
-      const jwtoken = jwt.sign({
+      const token = jwt.sign({
         subject: user.id,
         username: user.username,
       }, secrets.jwt, {
-        expiresIn: "14d",
+        expiresIn: '14d',
       })
 
       res.status(200).json({
-        message: `Welcome ${user.username}`,
-        token: jwtoken,
+        message: `Welcome ${user.username}, you are authorized!`,
+        userId: req.userId,
+        token: token,
       })
     } else {
       res.status(401).json({
-        message: "please sign-in!"
+        message: 'Please sign-in!'
       })
     }
   } catch(err) {
