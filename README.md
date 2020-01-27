@@ -53,8 +53,8 @@ Demonstrate your understanding of this week's concepts by answering the followin
 - [ ] What are the three parts of the JSON Web Token?
 
   - Header: contains the algorithm with the token type,
-	- Payload: includes permission information for the user or any other data we'd like to store in the token and 
-	- Signature: create a string by encoding the header and payload together and then signing it with a secret.
+  - Payload: includes permission information for the user or any other data we'd like to store in the token and 
+  - Signature: create a string by encoding the header and payload together and then signing it with a secret.
 
 
 ## Minimum Viable Product
