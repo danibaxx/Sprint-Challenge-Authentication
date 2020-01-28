@@ -34,7 +34,7 @@ router.post('/login', async (req, res, next) => {
       })
 
       res.status(200).json({
-        message: `Welcome ${user.username}, you are authorized!`,
+        message: 'Welcome, you are authorized!',
         token: token,
       })
     } else {

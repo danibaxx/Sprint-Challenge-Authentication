@@ -6,6 +6,12 @@ function find() {
     .select('id', 'username')
 };
 
+function findBy(data) {
+  return db('users')
+    .where(data)
+    .select('id', 'username', 'password')
+};
+
 async function add(user) {
   user.password = await bcrypt.hash(user.password, 14)
 
@@ -23,6 +29,7 @@ function findById(id) {
 
 module.exports = {
   find,
+  findBy,
   findById,
   add,
 };

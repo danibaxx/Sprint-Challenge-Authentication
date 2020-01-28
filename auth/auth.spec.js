@@ -8,17 +8,17 @@ beforeEach(async () => {
 });
 
 test('welcome route', async () => {
-  const res = await supertest(server).get('/')
-  expect(res.status).toBe(200)
-  expect(res.body.message).toBe('Welcome to Auth API')
+  const resWel = await supertest(server).get('/')
+  expect(resWel.status).toBe(200)
+  expect(resWel.body.message).toBe('Welcome to Auth API')
 });
 
 test('register', async () => {
-  const res = await supertest(server)
-    .post('/register')
+  const response = await supertest(server)
+    .post('/api/auth/register')
     .send({ username: 'drako' })
-    // expect(res.status).toBe(201)
-    expect(res.body).toEqual({ id: 4, username: 'drako'})
+    expect(response.status).toBe(201)
+    expect(response.body).toEqual({ id: 4, username: 'drako'})
 });
 
 test('login', async () => {
