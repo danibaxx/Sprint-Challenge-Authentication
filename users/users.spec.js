@@ -5,7 +5,7 @@ beforeEach(async () => {
   await db.seed.run()
 });
 
-describe('find users', () => {
+describe('users model', () => {
   test('find', async () => {
     const res = await usersModel.find()
     expect(res.length).toBeGreaterThan(0)

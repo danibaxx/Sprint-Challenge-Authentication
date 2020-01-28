@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets');
+const auth = require('./authenticate-middleware');
 
 const usersModel = require('../users/users-model');
 
@@ -18,7 +19,7 @@ router.post('/register', async (req, res, next) => {
   }
 });
 
-router.post('/login', async (req, res, next) => {
+router.post('/login', auth(), async (req, res, next) => {
   // implement login
   try {
     const { username, password } = req.body;
@@ -36,6 +37,7 @@ router.post('/login', async (req, res, next) => {
       res.status(200).json({
         message: 'Welcome, you are authorized!',
         token: token,
+        userId: req.userId,
       })
     } else {
       res.status(401).json({
