@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets');
-const auth = require('./authenticate-middleware');
+// const auth = require('./authenticate-middleware');
 
 const usersModel = require('../users/users-model');
 
@@ -13,13 +13,14 @@ router.post('/register', async (req, res, next) => {
   try {
     const saved = await usersModel.add(req.body)
     // console.log(req.body)
+    console.log(res)
     res.status(201).json(saved)
   } catch(err) {
     next(err)
   }
 });
 
-router.post('/login', auth(), async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
   // implement login
   try {
     const { username, password } = req.body;
