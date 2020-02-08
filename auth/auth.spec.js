@@ -16,7 +16,7 @@ beforeEach(async () => {
     const res = await supertest(testServ)
       .post('/api/auth/register')
       .send({ username: 'harry' })
-      expect(res.username).toEqual('harry')
+      expect(res.user.username).toEqual('harry')
       expect(res.type).toBe('application/json')
   });
   

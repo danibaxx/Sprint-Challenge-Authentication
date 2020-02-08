@@ -15,7 +15,7 @@ module.exports = {
   dev: {
     ...sqlite,
     connection: {
-      filename: "./database/auth.db3",
+      filename: "./database/authDev.db3",
     },
   },
   test: {
