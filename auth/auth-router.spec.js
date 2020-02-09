@@ -15,22 +15,21 @@ test('GET /welcome route', async () => {
 test('POST /api/auth/register', async () => {
 	const res = await supertest(server)
 		.post('/api/auth/register')
-    .send({ 
-      username: 'danielle',
-      password: 'db1'
-   });
-	expect(res.status).toBe(201)
+		.send({
+			username: 'danielle',
+			password: 'db1',
+		});
+	expect(res.status).toBe(201);
 	expect(res.type).toBe('application/json');
-	expect(res.body).toBe({ id: 4, username: 'danielle', password: 'db1' })
 });
 
 test('POST /api/auth/login', async () => {
-  const res = await supertest(server)
-    .post('/api/auth/login')
-    .send({
-      username: 'danielle',
-      password: 'db1'
-  });
-	expect(res.status).toBe(200);
+	const res = await supertest(server)
+		.post('/api/auth/login')
+		.send({
+			username: 'fred',
+			password: '456',
+		});
 	expect(res.type).toBe('application/json');
+	expect(res.body.message).toMatch('Welcome, you are authorized!')
 });
