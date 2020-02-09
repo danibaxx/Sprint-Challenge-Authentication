@@ -1,20 +1,26 @@
 const db = require('../database/dbConfig');
 const usersModel = require('./users-model');
 
-beforeAll(async () => {
+beforeEach(async () => {
 	await db.seed.run();
 });
 
-// testing the contents of the model
 describe('users model', () => {
-  test('find', async () => {
-    const res = await usersModel.find()
-    expect(res).toHaveLength(4)
-  })
+	test('find', async () => {
+		const res = await usersModel.find();
+		expect(res.length).toBeGreaterThan(0);
+		expect(res).toHaveLength(3);
+	});
 
-  test('findById', async () => {
-    const res = await usersModel.findById(1);
-    expect(res.username).toMatch('harry');
-    expect(res.password).not.toBeNull();
-  })
+	test('findById', async () => {
+		const res = await usersModel.findById(1);
+		expect(res.username).toBe('harry');
+		expect(res.id).toBe(1);
+	});
+
+	test('add user', async () => {
+		await usersModel.add({ username: 'draco', password: 'd123' });
+		const res = await db('users').select();
+		expect(res).toHaveLength(4);
+	});
 });
