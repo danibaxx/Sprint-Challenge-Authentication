@@ -14,7 +14,7 @@ function findBy(data) {
 function findById(id) {
 	return db('users')
 		.where({ id })
-		.first('id', 'username');
+		.first();
 }
 
 async function add(user) {

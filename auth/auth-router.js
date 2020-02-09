@@ -2,7 +2,6 @@ const bcrypt = require('bcryptjs');
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const secrets = require('../config/secrets');
-// const auth = require('./authenticate-middleware');
 
 const usersModel = require('../users/users-model');
 
@@ -12,8 +11,8 @@ router.post('/register', async (req, res, next) => {
 	// implement registration
 	try {
 		const saved = await usersModel.add(req.body);
-		console.log(req.body);
-		// console.log(res)
+		// console.log(req.body);
+		// console.log(res);
 		res.status(201).json(saved);
 	} catch (err) {
 		next(err);
@@ -26,6 +25,7 @@ router.post('/login', async (req, res, next) => {
 		const { username, password } = req.body;
 		const user = await usersModel.findBy({ username }).first();
 		const pwValid = await bcrypt.compare(password, user.password);
+		// console.log(res);
 
 		if (user && pwValid) {
 			const token = jwt.sign(
