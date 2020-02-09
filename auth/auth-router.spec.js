@@ -2,7 +2,10 @@ const supertest = require('supertest');
 const server = require('../api/server');
 const db = require('../database/dbConfig');
 
-beforeEach(async () => {
+const authToken =
+	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo1LCJ1c2VybmFtZSI6ImhlZHdpZyIsImlhdCI6MTU4MTIxNjI3NSwiZXhwIjoxNTgyNDI1ODc1fQ.SfGgINxSNLZQ_pnE__ywKmuBQ_-eCU7xo2hfMOOuf9Y';
+
+beforeAll(async () => {
 	await db.seed.run();
 });
 
@@ -16,8 +19,8 @@ test('POST /api/auth/register', async () => {
 	const res = await supertest(server)
 		.post('/api/auth/register')
 		.send({
-			username: 'danielle',
-			password: 'db1',
+			username: 'hedwig',
+			password: 'hedwig1',
 		});
 	expect(res.status).toBe(201);
 	expect(res.type).toBe('application/json');
@@ -26,10 +29,13 @@ test('POST /api/auth/register', async () => {
 test('POST /api/auth/login', async () => {
 	const res = await supertest(server)
 		.post('/api/auth/login')
+		.set({
+			Authorization: authToken,
+		})
 		.send({
 			username: 'fred',
 			password: '456',
 		});
 	expect(res.type).toBe('application/json');
-	expect(res.body.message).toMatch('Welcome, you are authorized!')
+	expect(res.body.message).toMatch('Welcome, you are authorized!');
 });
