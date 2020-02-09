@@ -16,7 +16,7 @@ server.use('/api/auth', authRouter);
 server.use('/api/jokes', jokesRouter);
 server.use('/api/users', usersRouter);
 
-server.get('/', (req, res, next) => {
+server.get('/welcome', (req, res, next) => {
 	res.json({
 		message: 'Welcome to Auth API',
 	});
