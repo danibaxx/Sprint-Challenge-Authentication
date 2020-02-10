@@ -33,8 +33,8 @@ test('POST /api/auth/login', async () => {
 			Authorization: authToken,
 		})
 		.send({
-			username: 'fred',
-			password: '456',
+			username: 'hedwig',
+			password: 'hedwig1',
 		});
 	expect(res.type).toBe('application/json');
 	expect(res.body.message).toMatch('Welcome, you are authorized!');
